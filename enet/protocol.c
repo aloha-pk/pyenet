@@ -1066,6 +1066,7 @@ enet_protocol_handle_incoming_commands (ENetHost * host, ENetEvent * event)
        peer -> address.host = host -> receivedAddress.host;
        peer -> address.port = host -> receivedAddress.port;
        peer -> incomingDataTotal += host -> receivedDataLength;
+       peer -> incomingDataTrueTotal += host -> receivedDataLength;
     }
     
     currentData = host -> receivedData + headerSize;
@@ -1741,6 +1742,7 @@ enet_protocol_send_outgoing_commands (ENetHost * host, ENetEvent * event, int ch
 
         host -> totalSentData += sentLength;
         host -> totalSentPackets ++;
+        currentPeer -> outgoingDataTrueTotal += sentLength;
     }
    
     return 0;

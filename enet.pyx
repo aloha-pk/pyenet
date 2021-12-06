@@ -83,6 +83,8 @@ cdef extern from "enet/enet.h":
         enet_uint32 outgoingBandwidthThrottleEpoch
         enet_uint32 incomingDataTotal
         enet_uint32 outgoingDataTotal
+        enet_uint32 incomingDataTrueTotal
+        enet_uint32 outgoingDataTrueTotal
         enet_uint32 lastSendTime
         enet_uint32 lastReceiveTime
         enet_uint32 nextTimeout
@@ -631,6 +633,24 @@ cdef class Peer:
         def __get__(self):
             if self.check_valid():
                 return self._enet_peer.outgoingDataTotal
+
+    property incomingDataTrueTotal:
+        def __get__(self):
+            if self.check_valid():
+                return self._enet_peer.incomingDataTrueTotal
+
+        def __set__(self, value):
+            if self.check_valid():
+                self._enet_peer.incomingDataTrueTotal = value
+
+    property outgoingDataTrueTotal:
+        def __get__(self):
+            if self.check_valid():
+                return self._enet_peer.outgoingDataTrueTotal
+
+        def __set__(self, value):
+            if self.check_valid():
+                self._enet_peer.outgoingDataTrueTotal = value
 
     property lastSendTime:
         def __get__(self):
